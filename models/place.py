@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from base_model import BaseModel
+from models.base_model import BaseModel
 class Place(BaseModel):
     def __init__(self, city_id='', user_id=''):
         super().__init__()

@@ -12,6 +12,7 @@ from models.review import Review
 
 
 def parse(arg):
+    """Parses the argument into a list of tokens."""
     curly_braces = re.search(r"\{(.*?)\}", arg)
     brackets = re.search(r"\[(.*?)\]", arg)
     if curly_braces is None:
@@ -27,9 +28,12 @@ def parse(arg):
         retl = [i.strip(",") for i in lexer]
         retl.append(curly_braces.group())
         return retl
-class HBNBCommand(cmd.Cmd):
-    prompt = "(hbnb) "
 
+
+class HBNBCommand(cmd.Cmd):
+    """Command-line interpreter for Airbnb project."""
+
+    prompt = "(hbnb) "
 
     __classes = {
         "BaseModel",
@@ -42,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
     }
 
     def default(self, arg):
-        """Default behavior for cmd module when input is invalid"""
+        """Default behavior for cmd module when input is invalid."""
         argdict = {
             "all": self.do_all,
             "show": self.do_show,
@@ -61,7 +65,9 @@ class HBNBCommand(cmd.Cmd):
                     return argdict[command[0]](call)
         print("*** Unknown syntax: {}".format(arg))
         return False
+
     def do_create(self, line):
+        """Create a new instance of a class."""
         if not line:
             print("** class name missing **")
             return
@@ -71,7 +77,9 @@ class HBNBCommand(cmd.Cmd):
             print(new_instance.uuid)
         except NameError:
             print("** class doesn't exist **")
+
     def do_show(self, line):
+        """Show the string representation of an instance."""
         args = line.split()
         if not args:
             print("** class name missing **")
@@ -82,7 +90,6 @@ class HBNBCommand(cmd.Cmd):
             if len(args) < 2:
                 print("** instance id missing **")
                 return
-
             obj_id = args[1]
             key = cls_name + "." + obj_id
             if key in storage.all():
@@ -91,8 +98,9 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
         except NameError:
             print("** class doesn't exist **")
-        
+
     def do_destroy(self, line):
+        """Delete an instance based on the class name and id."""
         args = line.split()
         if not args:
             print("** class name missing **")
@@ -113,8 +121,9 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
         except NameError:
             print("** class doesn't exist **")
+
     def do_all(self, arg):
-        """Prints all string representations of all instances based or not on the class name."""
+        """Print all instances or instances of a specific class."""
         args = arg.split()
         obj_list = []
         if not args:
@@ -130,13 +139,15 @@ class HBNBCommand(cmd.Cmd):
                 return
 
         print([str(obj) for obj in obj_list])
+
     def do_update(self, arg):
-        """Updates an instance based on the class name and id by adding or updating an attribute."""
+        """Update an instance's attribute based on the class name and id."""
         args = arg.split()
         if not args:
             print("** class name missing **")
             return
 
+```python
         try:
             cls_name = args[0]
             if len(args) < 2:
@@ -163,24 +174,30 @@ class HBNBCommand(cmd.Cmd):
             setattr(obj, attr_name, attr_value)
             obj.save()
         except NameError:
-            print("** class doesn't exist **")            
+            print("** class doesn't exist **")
 
     def do_quit(self, line):
-        """Exit the program"""
+        """Exit the program."""
         return True
 
     def do_EOF(self, line):
-        """Exit the program"""
+        """Exit the program."""
         print()
         return True
 
     def postcmd(self, stop, line):
+        """Executed after each command."""
         self.prompt = "(hbnb) "
         return stop
+
     def help_quit(self):
+        """Print help message for the quit command."""
         print("Quit command to exit the program")
+
     def emptyline(self):
+        """Do nothing when an empty line is entered."""
         pass
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

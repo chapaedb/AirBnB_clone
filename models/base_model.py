@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import uuid
 import datetime
-from models.engine.file_storage import storage
+import models
 
 class BaseModel:
     def __init__(self, *args, **kwargs):
@@ -12,12 +12,12 @@ class BaseModel:
             self.created_at = datetime.fromisoformat(kwargs['created_at'])
             self.updated_at = datetime.fromisoformat(kwargs['updated_at'])
             if '__class__' not in kwargs:
-                storage.new(self)
+                models.storage.new(self)
         else:
             self.uuid = str(uuid.uuid4())
             self.created_at = datetime.datetime.now()
             self.updated_at = self.created_at
-            storage.new(self)
+            models.storage.new(self)
 
     def __str__(self):
         return f"[{self.__class__.__name__}] ({self.uuid}) {self.__dict__}"

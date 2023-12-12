@@ -3,7 +3,7 @@ from models.base_model import BaseModel
 class user(BaseModel):
     def __init__(self):
         super().__init__()
-        self.email = str()
-        self.password = str()
-        self.first_name = str()
-        self.last_name = str()
+        self.email = ""
+        self.password = ""
+        self.first_name = ""
+        self.last_name = ""

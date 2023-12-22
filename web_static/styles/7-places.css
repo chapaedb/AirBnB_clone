@@ -1,0 +1,37 @@
+.Places{
+
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    
+}
+.Places h1{
+    font-size: 30px;
+}
+.Title{
+    margin-bottom: -25px;
+    font-size: 30px;
+    /* float: left; */
+
+}
+.Articles{
+    
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: baseline;
+
+}
+.Places article{
+    margin-top: 30px;
+    width: 390px;
+    /* display: flex; */
+    border: #FF5A5F 1px solid;
+    border-radius: 4px;
+    /* justify-content: center;
+    align-items: center; */
+    text-align: center;
+    padding: 20px;
+    margin: 20px;
+
+}
